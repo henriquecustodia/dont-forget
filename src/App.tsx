@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { TextField } from './components/Input/Input';
+import { List } from './components/List/List';
+import { Item } from './models/Item';
+import { InCart } from './shared/contexts/InCart';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <InCart>
+      <div className='container'>
+
+        <InCart.Actions>
+          {({ add }) => (
+            <div className='mt-3'>
+              <TextField placeholder='Item to add' onChange={add}></TextField>
+            </div>
+          )}
+        </InCart.Actions>
+
+        <InCart.NotAddedItems>
+          {(items: Item[]) => (
+            <>
+              <List items={items} className='mt-3' />
+            </>
+          )}
+        </InCart.NotAddedItems>
+        <InCart.AddedItems>
+          {(items: Item[]) => (
+            <>
+              {Boolean(items.length) && <hr />}
+              <List items={items} className='mt-3' />
+            </>
+          )}
+        </InCart.AddedItems>
+      </div>
+    </InCart>
   );
 }
 
