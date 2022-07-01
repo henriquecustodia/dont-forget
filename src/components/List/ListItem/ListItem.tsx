@@ -1,27 +1,50 @@
-import { BaseProps } from '../../../models/BaseProps';
-import { Item } from '../../../models/Item';
-import Checkbox from '../../../shared/components/checkbox/Checkbox';
-import { InCart } from '../../../shared/contexts/InCart';
+import { FC, useState } from 'react';
+import styled from 'styled-components';
+import { BaseProps } from '../../../shared/models/BaseProps';
+import { Item } from '../../../shared/models/Item';
+import { useActions } from '../../../shared/store/Store';
+import { ListItemButton } from './Button';
+import { ListItemContainer } from './ListItemContainer';
 
-export interface ListItemProps extends BaseProps {
+interface Props extends BaseProps {
     item: Item;
 }
 
-export function ListItem({ item }: ListItemProps) {
+export const ListItem: FC<Props> = ({ item }) => {
+    const {
+        markAsDone,
+        markAsUndone
+    } = useActions();
+
+    const btnLabel = item.isDone ? 'Undone' : 'Done';
+    const btnColorClass = item.isDone ? 'btn-warning' : 'btn-primary';
+    const onClick = () => item.isDone ? markAsUndone(item) : markAsDone(item)
+
+    const getButtonLabel = (isHover: boolean) => {
+        if (isHover) {
+            if (item.isDone) {
+                return `${btnLabel} :(`;
+            }
+            else {
+                return `${btnLabel} :D`;
+            }
+        }
+
+        return btnLabel
+    }
+
     return (
-        <InCart.Actions>
-            {({ markItemAsAdded, markItemAsUnadded }) => (
-                <div className='d-flex border rounded p-3 d-flex' style={{opacity: item.isAdded ? 0.3 : 1 }}>
-                    <div>{item.name}</div>
+        <ListItemContainer className='rounded' opaque={item.isDone}>
+            <div className='d-flex flex-wrap flex-column flex-sm-row align-items-sm-center'>
+                <div className='text-white p-3'>{item.text}</div>
 
-                    <div className='ms-auto'>
-                        <Checkbox value={item.isAdded} onChange={(checked) => checked ? markItemAsAdded(item) : markItemAsUnadded(item)}>
-                            In Cart
-                        </Checkbox>
-                    </div>
-
+                <div className='p-3 ms-auto'>
+                    <ListItemButton className={btnColorClass} onClick={onClick}>
+                        {({ isHover }) => getButtonLabel(isHover)}
+                    </ListItemButton>
                 </div>
-            )}
-        </InCart.Actions>
-    )
+            </div>
+        </ListItemContainer>
+
+    );
 }

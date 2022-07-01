@@ -1,12 +1,13 @@
-import { BaseProps } from '../../models/BaseProps';
-import { Item } from '../../models/Item';
+import { FC } from 'react';
+import { BaseProps } from '../../shared/models/BaseProps';
+import { Item } from '../../shared/models/Item';
 import { ListItem } from './ListItem/ListItem';
 
-export interface ListProps extends BaseProps {
+export interface Props extends BaseProps {
     items: Item[];
 }
 
-export function List({ items, className }: ListProps) {
+export const List: FC<Props> = ({ items, className }) => {
     return (
         <div className={className}>
             {items.map(item =>

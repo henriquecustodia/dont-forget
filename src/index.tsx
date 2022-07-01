@@ -1,15 +1,25 @@
+import 'bootswatch/dist/lumen/bootstrap.min.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { GlobalStyle } from './shared/components/GlobalStyles';
 import reportWebVitals from './reportWebVitals';
-import './styles/index.scss';
+import { ThemeWrapper } from './shared/components/ThemeWrapper';
+import { StoreProvider } from './shared/store/Store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeWrapper>
+      <StoreProvider>
+        <GlobalStyle />
+        <App />
+      </StoreProvider>
+    </ThemeWrapper>
   </React.StrictMode>
 );
 

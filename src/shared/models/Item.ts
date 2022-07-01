@@ -1,5 +1,5 @@
 export interface Item {
     id: string;
-    name: string;
-    isAdded: boolean;
+    text: string;
+    isDone: boolean;
 }

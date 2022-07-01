@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { BaseProps } from "../../models/BaseProps";
+import { FC, useState } from "react";
+import { BaseProps } from "../../shared/models/BaseProps";
 import { foo } from "../../shared/functions/foo";
 
-interface TextFieldProps extends BaseProps {
+interface Props extends BaseProps {
     initialValue?: string;
     placeholder?: string;
+    btnLabel?: string
     onChange?: (value: string) => void;
 }
 
-export const TextField = ({ initialValue = '', placeholder, onChange = foo }: TextFieldProps) => {
+export const TextField: FC<Props> = ({ initialValue = '', placeholder, btnLabel, onChange = foo }) => {
     const [value, setValue] = useState(initialValue);
 
     const onInput = event => {
@@ -33,7 +34,9 @@ export const TextField = ({ initialValue = '', placeholder, onChange = foo }: Te
     return (
         <div className="input-group">
             <input type="text" className="form-control" value={value} placeholder={placeholder} onKeyDown={onEnter} onInput={onInput} />
-            <button className="btn btn-outline-secondary" type="button" onClick={onSubmit}>Button</button>
+            <button className="btn btn-primary" type="button" onClick={onSubmit}>{btnLabel}</button>
         </div>
-    );
+    )
 };
+
+

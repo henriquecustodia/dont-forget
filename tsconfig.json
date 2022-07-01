@@ -24,5 +24,6 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "moduleResolution": "node"
 }
