@@ -5,10 +5,12 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
     html {
         margin: 0;
+        height: 100%;
     }
 
     body {
         margin: 0;
+        height: 100%;
         background: ${props => props.theme.background};
     }
 
