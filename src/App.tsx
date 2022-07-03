@@ -1,19 +1,17 @@
+import { DoneList } from './components/DoneList/Index';
 import { Header } from './components/Header/Header';
-import { TextField } from './components/Input/Input';
-import { List } from './components/List/List';
+import { NotDoneList } from './components/NotDoneList/Index';
+import { RemoveAllItemsBtn } from './components/RemoveAllItems/Index';
 import { PageContainer } from './shared/components/PageContainer';
-import { useActions } from './shared/store/Store';
+import { AddItem } from './components/AddItem/Index';
+import { useGetters } from './shared/store/Store';
+import { NoItemsMessage } from './components/NoItemsMessage/Index';
+import { SunglassesIcon } from './shared/components/Icons';
+import { AllDoneMessage } from './components/AllDoneMessage/Index';
 
 function App() {
 
-  const {
-    getDoneItems,
-    getUndoneItems,
-    add
-  } = useActions();
-
-  const addedItems = getDoneItems();
-  const notAddedItems = getUndoneItems();
+  const { hasItems, isAllDone } = useGetters();
 
   return (
     <>
@@ -23,16 +21,24 @@ function App() {
         </PageContainer>
       </Header>
 
-      <PageContainer>
-        <div className='mt-3'>
-          <TextField placeholder='Something you cannot forget' btnLabel='add' onChange={add}></TextField>
+      <PageContainer className='mt-3'>
+        <div className='mt-3 d-flex justify-content-end'>
+          <RemoveAllItemsBtn />
         </div>
 
-        <List items={notAddedItems} className='mt-3' />
+        <AddItem className='mt-5' />
 
-        {Boolean(notAddedItems.length) && <hr />}
+        {isAllDone() && <AllDoneMessage className='mt-3' />}
 
-        <List items={addedItems} className='mt-3' />
+        {hasItems() && (
+          <>
+            <NotDoneList className='mt-3' />
+            <DoneList className='mt-3' />
+          </>
+        )}
+
+        {!hasItems() && <NoItemsMessage className='mt-3' />}
+
       </PageContainer>
     </>
   );

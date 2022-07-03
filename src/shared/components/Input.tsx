@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { BaseProps } from "../../shared/models/BaseProps";
-import { foo } from "../../shared/functions/foo";
+import { BaseProps } from "../interfaces/BaseProps";
+import { foo } from "../functions/foo";
 
 interface Props extends BaseProps {
     initialValue?: string;

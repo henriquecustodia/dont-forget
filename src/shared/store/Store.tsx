@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
-import { BaseProps } from "../models/BaseProps";
-import { Item } from "../models/Item";
+import { BaseProps } from "../interfaces/BaseProps";
+import { Item } from "../interfaces/Item";
 import { generateId } from "../functions/generateId";
 import { useStorage } from "../hooks/useStorage";
 
@@ -9,27 +9,44 @@ class State {
     add: (text: string) => void;
     markAsDone: (item: Item) => void;
     markAsUndone: (item: Item) => void;
-    getUndoneItems: () => Item[];
+    getNotDoneItems: () => Item[];
     getDoneItems: () => Item[];
+    removeAllItems: () => void;
+    hasItems: () => boolean;
+    isAllDone: () => boolean;
 }
 
 export const StoreContext = createContext<State>(new State());
 
 export function useActions() {
     const {
-        getDoneItems,
-        getUndoneItems,
         add,
         markAsDone,
-        markAsUndone
+        markAsUndone,
+        removeAllItems
+    } = useContext(StoreContext);
+
+    return {
+        add,
+        markAsDone,
+        markAsUndone,
+        removeAllItems
+    }
+}
+
+export function useGetters() {
+    const {
+        getDoneItems,
+        getNotDoneItems,
+        isAllDone,
+        hasItems
     } = useContext(StoreContext);
 
     return {
         getDoneItems,
-        getUndoneItems,
-        add,
-        markAsDone,
-        markAsUndone
+        getNotDoneItems,
+        isAllDone,
+        hasItems
     }
 }
 
@@ -73,8 +90,20 @@ export function StoreProvider({ children }: BaseProps) {
         return items.filter(i => i.isDone)
     }
 
-    function getUndoneItems() {
+    function getNotDoneItems() {
         return items.filter(i => !i.isDone)
+    }
+
+    function hasItems() {
+        return items.length > 0;
+    }
+
+    function isAllDone() {
+        return hasItems() && items.every(item => item.isDone);
+    }
+
+    function removeAllItems() {
+        setItems([]);
     }
 
     const contextValue: State = {
@@ -82,8 +111,11 @@ export function StoreProvider({ children }: BaseProps) {
         add,
         markAsDone,
         markAsUndone,
+        removeAllItems,
         getDoneItems,
-        getUndoneItems
+        getNotDoneItems,
+        hasItems,
+        isAllDone
     };
 
     return (

@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { BaseProps } from '../../shared/models/BaseProps';
-import { Item } from '../../shared/models/Item';
+import { BaseProps } from '../../shared/interfaces/BaseProps';
+import { Item } from '../../shared/interfaces/Item';
 import { ListItem } from './ListItem/ListItem';
 
 export interface Props extends BaseProps {

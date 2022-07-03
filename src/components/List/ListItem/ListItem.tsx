@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
-import styled from 'styled-components';
-import { BaseProps } from '../../../shared/models/BaseProps';
-import { Item } from '../../../shared/models/Item';
+import { FC } from 'react';
+import { BaseProps } from '../../../shared/interfaces/BaseProps';
+import { Item } from '../../../shared/interfaces/Item';
 import { useActions } from '../../../shared/store/Store';
 import { ListItemButton } from './Button';
 import { ListItemContainer } from './ListItemContainer';
@@ -16,7 +15,7 @@ export const ListItem: FC<Props> = ({ item }) => {
         markAsUndone
     } = useActions();
 
-    const btnLabel = item.isDone ? 'Undone' : 'Done';
+    const btnLabel = item.isDone ? 'Not done yet' : 'Done';
     const btnColorClass = item.isDone ? 'btn-warning' : 'btn-primary';
     const onClick = () => item.isDone ? markAsUndone(item) : markAsDone(item)
 

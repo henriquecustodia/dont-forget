@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { BaseProps } from "../../../shared/models/BaseProps";
+import { BaseProps } from "../../../shared/interfaces/BaseProps";
 
 interface Props extends BaseProps {
     onClick: () => void;
