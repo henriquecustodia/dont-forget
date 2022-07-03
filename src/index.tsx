@@ -5,6 +5,7 @@ import { GlobalStyle } from './shared/components/GlobalStyles';
 import reportWebVitals from './reportWebVitals';
 import { ThemeWrapper } from './shared/components/ThemeWrapper';
 import { StoreProvider } from './shared/store/Store';
+import { register } from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -25,3 +26,7 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
+register();
+
