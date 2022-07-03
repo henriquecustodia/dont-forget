@@ -6,7 +6,6 @@ import { PageContainer } from './shared/components/PageContainer';
 import { AddItem } from './components/AddItem/Index';
 import { useGetters } from './shared/store/Store';
 import { NoItemsMessage } from './components/NoItemsMessage/Index';
-import { SunglassesIcon } from './shared/components/Icons';
 import { AllDoneMessage } from './components/AllDoneMessage/Index';
 
 function App() {
@@ -17,7 +16,7 @@ function App() {
     <>
       <Header>
         <PageContainer className='d-flex justify-content-center'>
-          <h3>Don't Forget!</h3>
+            <img style={{ width: '110px' }} src="logo.png" alt="Logo" />
         </PageContainer>
       </Header>
 
