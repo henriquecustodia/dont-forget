@@ -12,12 +12,14 @@ interface Props extends BaseProps {
 export const ListItem: FC<Props> = ({ item }) => {
     const {
         markAsDone,
-        markAsUndone
+        markAsUndone,
+        removeItem
     } = useActions();
 
     const btnLabel = item.isDone ? 'Not done yet' : 'Done';
     const btnColorClass = item.isDone ? 'btn-warning' : 'btn-primary';
-    const onClick = () => item.isDone ? markAsUndone(item) : markAsDone(item)
+    const onSubmit = () => item.isDone ? markAsUndone(item) : markAsDone(item)
+    const onRemove = () => removeItem(item)
 
     const getButtonLabel = (isHover: boolean) => {
         if (isHover) {
@@ -38,7 +40,11 @@ export const ListItem: FC<Props> = ({ item }) => {
                 <div className='text-white p-3'>{item.text}</div>
 
                 <div className='p-3 ms-auto'>
-                    <ListItemButton className={btnColorClass} onClick={onClick}>
+                    <ListItemButton className={'btn-outline-danger me-3'} onClick={onRemove}>
+                        {() => 'Remove'}
+                    </ListItemButton>
+
+                    <ListItemButton className={btnColorClass} onClick={onSubmit}>
                         {({ isHover }) => getButtonLabel(isHover)}
                     </ListItemButton>
                 </div>

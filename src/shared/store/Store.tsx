@@ -12,6 +12,7 @@ class State {
     getNotDoneItems: () => Item[];
     getDoneItems: () => Item[];
     removeAllItems: () => void;
+    removeItem: (item: Item) => void;
     hasItems: () => boolean;
     isAllDone: () => boolean;
 }
@@ -23,14 +24,16 @@ export function useActions() {
         add,
         markAsDone,
         markAsUndone,
-        removeAllItems
+        removeAllItems,
+        removeItem
     } = useContext(StoreContext);
 
     return {
         add,
         markAsDone,
         markAsUndone,
-        removeAllItems
+        removeAllItems,
+        removeItem
     }
 }
 
@@ -106,12 +109,23 @@ export function StoreProvider({ children }: BaseProps) {
         setItems([]);
     }
 
+    function removeItem({ id }: Item) {
+        if (!hasItems()) {
+            return;
+        }
+
+        const itemsWithoutRemovedItem = items.filter(item => item.id !== id);
+
+        setItems(itemsWithoutRemovedItem);
+    }
+
     const contextValue: State = {
         items: items,
         add,
         markAsDone,
         markAsUndone,
         removeAllItems,
+        removeItem,
         getDoneItems,
         getNotDoneItems,
         hasItems,

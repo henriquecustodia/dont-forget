@@ -5,7 +5,7 @@ const storage = selectStorage('dont-forget-storage');
 
 export function useStorage<T>(defaultvalue: T): [T, Dispatch<SetStateAction<T>>] {
     const [value, setValue] = useState<T>(() => { 
-        return <T>storage.get() || defaultvalue 
+        return storage.get() as T || defaultvalue 
     })
     
     useEffect(() => {
