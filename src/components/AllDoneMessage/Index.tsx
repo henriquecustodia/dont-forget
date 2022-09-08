@@ -16,9 +16,9 @@ export const AllDoneMessage: FC<BaseProps> = ({ className }) => {
                 <SunglassesIcon />
             </div>
 
-            <a className="alert-link d-block mt-3" onClick={removeAllItems}>
+            <button className="mt-3 btn btn-link text-white" onClick={removeAllItems}>
                 Clean up the list and start other one
-            </a>
+            </button>
         </div>
     );
 }
